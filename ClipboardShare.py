@@ -31,6 +31,25 @@ class WorkThread(QThread):
             self.mySignal.emit(self.MainGui.EditCopy)
             time.sleep(1)
 
+class ShareThread(QThread):
+    mySignal = pyqtSignal(list)
+    def __init__(self, MainGui):
+        super(ShareThread, self).__init__()
+        self.MainGui = MainGui
+
+    def run(self):
+        shareClipboardData = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        shareClipboardData.bind(('', 9999))
+        while True:
+            data, addr = shareClipboardData.recvfrom(1024)
+            print(data, addr)
+            #if pyperclip.paste() != ""  and pyperclip.paste() not in self.MainGui.EditCopy:
+            #    self.MainGui.EditCopy[1], self.MainGui.EditCopy[2] = self.MainGui.EditCopy[0], self.MainGui.EditCopy[1]
+            #    self.MainGui.EditCopy[0] = pyperclip.paste()
+            #    print(self.MainGui.EditCopy)
+            self.mySignal.emit(self.MainGui.EditCopy)
+            time.sleep(1)
+
 
 class Clipboard_QT(QMainWindow,Ui_MainWindow):
     def __init__(self):
@@ -38,8 +57,11 @@ class Clipboard_QT(QMainWindow,Ui_MainWindow):
         self.setupUi(self)
         self.EditCopy = ["", "", ""]
         self.updateDataThread = WorkThread(self)
+        self.shareClipboardData = ShareThread(self)
         self.updateDataThread.mySignal.connect(self.Update_EditBox)
+        self.shareClipboardData.mySignal.connect(self.Update_EditBox)
         self.updateDataThread.start()
+        self.shareClipboardData.start()
         self.actionCopyToClipboard_1.triggered.connect(self.CopyToClipboard_1)
         self.actionCopyToClipboard_2.triggered.connect(self.CopyToClipboard_2)
         self.actionCopyToClipboard_3.triggered.connect(self.CopyToClipboard_3)
