@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="bk_pic">
+    <file>sharing.ico</file>
+    <file>clipboard_refresht.ico</file>
+    <file>gongzhonghao.jpg</file>
+    <file>post-bg-desk.jpg</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>543</width>
+    <height>473</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>543</width>
+    <height>473</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>543</width>
+    <height>473</height>
+   </size>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::NoContextMenu</enum>
+  </property>
+  <property name="acceptDrops">
+   <bool>false</bool>
+  </property>
+  <property name="windowTitle">
+   <string>Clipboard Share</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normalon>:/bk_pic/clipboard_refresht.ico</normalon>
+   </iconset>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#MainWindow{background: url(:/bk_pic/post-bg-desk.jpg)}</string>
+  </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
+  <property name="animated">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTextEdit" name="EditBox_1">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>421</width>
+      <height>111</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CopyButton_1">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>30</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string extracomment="Copy to Clipboard">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copy to Clipboard(&lt;span style=&quot; color:#0000ff;&quot;&gt;CTRL+1&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string comment="Copy to Clipboard" extracomment="Copy to Clipboard">Copy</string>
+    </property>
+    <property name="shortcut">
+     <string>Ctrl+1</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="EditBox_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>421</width>
+      <height>111</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="EditBox_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>290</y>
+      <width>421</width>
+      <height>111</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CopyButton_2">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>180</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string extracomment="Copy to Clipboard">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copy to Clipboard(&lt;span style=&quot; color:#0000ff;&quot;&gt;CTRL+2&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string comment="Copy to Clipboard" extracomment="Copy to Clipboard">Copy</string>
+    </property>
+    <property name="shortcut">
+     <string>Ctrl+2</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CopyButton_3">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>330</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string extracomment="Copy to Clipboard">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copy to Clipboard(&lt;span style=&quot; color:#0000ff;&quot;&gt;CTRL+3&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="statusTip">
+     <string/>
+    </property>
+    <property name="text">
+     <string comment="Copy to Clipboard" extracomment="Copy to Clipboard">Copy</string>
+    </property>
+    <property name="shortcut">
+     <string>Ctrl+3</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ClearButton_1">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>70</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string extracomment="Copy to Clipboard">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clear this Edit Box&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string comment="Copy to Clipboard" extracomment="Copy to Clipboard">Clear</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ClearButton_2">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>220</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string extracomment="Copy to Clipboard">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clear this Edit Box&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string comment="Copy to Clipboard" extracomment="Copy to Clipboard">Clear</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ClearButton_3">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>370</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string extracomment="Copy to Clipboard">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clear this Edit Box&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="text">
+     <string comment="Copy to Clipboard" extracomment="Copy to Clipboard">Clear</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="contextMenuPolicy">
+    <enum>Qt::NoContextMenu</enum>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="statusTip">
+    <string notr="true"/>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color:rgb(255, 255, 255)</string>
+   </property>
+   <property name="inputMethodHints">
+    <set>Qt::ImhNone</set>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::AllToolBarAreas</set>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>16</width>
+     <height>16</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonFollowStyle</enum>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionAboutAuthor"/>
+   <addaction name="actionConnect"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 75 italic 12pt &quot;Arial&quot;;</string>
+   </property>
+   <property name="sizeGripEnabled">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <action name="actionCopyToClipboard_1">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>CopyToClipboard</string>
+   </property>
+  </action>
+  <action name="actionCopyToClipboard_2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>CopyToClipboard</string>
+   </property>
+  </action>
+  <action name="actionCopyToClipboard_3">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>CopyToClipboard</string>
+   </property>
+  </action>
+  <action name="actionAboutAuthor">
+   <property name="icon">
+    <iconset resource="bk_pic.qrc">
+     <normaloff>:/bk_pic/gongzhonghao.jpg</normaloff>
+     <normalon>:/bk_pic/about-self.jpg</normalon>:/bk_pic/gongzhonghao.jpg</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/bk_pic/gongzhonghao.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionConnect">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="bk_pic.qrc">
+     <normaloff>:/bk_pic/sharing.ico</normaloff>:/bk_pic/sharing.ico</iconset>
+   </property>
+   <property name="text">
+    <string>Connect</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#0000ff;&quot;&gt;Connect another&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+ </widget>
+ <tabstops>
+  <tabstop>EditBox_1</tabstop>
+  <tabstop>EditBox_2</tabstop>
+  <tabstop>EditBox_3</tabstop>
+  <tabstop>CopyButton_1</tabstop>
+  <tabstop>ClearButton_1</tabstop>
+  <tabstop>CopyButton_2</tabstop>
+  <tabstop>ClearButton_2</tabstop>
+  <tabstop>CopyButton_3</tabstop>
+  <tabstop>ClearButton_3</tabstop>
+ </tabstops>
+ <resources>
+  <include location="bk_pic.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>CopyButton_1</sender>
+   <signal>clicked()</signal>
+   <receiver>actionCopyToClipboard_1</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>497</x>
+     <y>67</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ClearButton_1</sender>
+   <signal>clicked()</signal>
+   <receiver>EditBox_1</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>497</x>
+     <y>107</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>87</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ClearButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>EditBox_2</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>497</x>
+     <y>257</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>237</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ClearButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>EditBox_3</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>497</x>
+     <y>407</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>387</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CopyButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>EditBox_2</receiver>
+   <slot>copy()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>497</x>
+     <y>217</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>237</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CopyButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>EditBox_3</receiver>
+   <slot>copy()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>497</x>
+     <y>367</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>387</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CopyButton_1</sender>
+   <signal>clicked()</signal>
+   <receiver>EditBox_1</receiver>
+   <slot>copy()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>497</x>
+     <y>67</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>220</x>
+     <y>87</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CopyButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>actionCopyToClipboard_2</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>497</x>
+     <y>217</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CopyButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>actionCopyToClipboard_3</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>497</x>
+     <y>367</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
