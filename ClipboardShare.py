@@ -9,12 +9,15 @@
 # -------------------------------------------------------------------
 
 
-import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel
+import sys, re, subprocess
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QDialog
 from Clipboard_QT import Ui_MainWindow
+from connect_share import Ui_Dialog
 import pyperclip, time, socket
-from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtCore import QThread, pyqtSignal, Qt
 
+hostIp = ""
+hostPort = ""
 
 class WorkThread(QThread):
     mySignal = pyqtSignal(list)
@@ -24,10 +27,6 @@ class WorkThread(QThread):
 
     def run(self):
         while True:
-            #if pyperclip.paste() != ""  and pyperclip.paste() not in self.MainGui.EditCopy:
-            #    self.MainGui.EditCopy[1], self.MainGui.EditCopy[2] = self.MainGui.EditCopy[0], self.MainGui.EditCopy[1]
-            #    self.MainGui.EditCopy[0] = pyperclip.paste()
-            #    print(self.MainGui.EditCopy)
             self.mySignal.emit(self.MainGui.EditCopy)
             time.sleep(1)
 
@@ -42,20 +41,54 @@ class ShareThread(QThread):
         shareClipboardData.bind(('', 9999))
         while True:
             data, addr = shareClipboardData.recvfrom(1024)
-            print(data, addr)
-            #if pyperclip.paste() != ""  and pyperclip.paste() not in self.MainGui.EditCopy:
-            #    self.MainGui.EditCopy[1], self.MainGui.EditCopy[2] = self.MainGui.EditCopy[0], self.MainGui.EditCopy[1]
-            #    self.MainGui.EditCopy[0] = pyperclip.paste()
-            #    print(self.MainGui.EditCopy)
+            pyperclip.copy(eval(str(data.decode('utf-8')))[0])
             self.mySignal.emit(self.MainGui.EditCopy)
             time.sleep(1)
+
+
+class Connect_QT(QDialog, Ui_Dialog):
+    def __init__(self):
+        super(Connect_QT, self).__init__()
+        self.setupUi(self)
+        self.lineEdit_2.setText("9999")
+        self.pushButton.clicked.connect(self.testConnection)
+
+    def testConnection(self):
+        self.ip_addr = self.lineEdit.text()
+        self.ip_port = self.lineEdit_2.text()
+        print(self.ip_addr)
+        if re.match('[1-9][0-9]{1,2}(.[0-9]{1,3}){3}', self.ip_addr):
+            print('1')
+            if sys.platform == "win32":
+                print('2')
+                if re.search('Average', subprocess.getoutput("ping -n 1 %s"% self.ip_addr)):
+                    self.label_3.setStyleSheet("color:rgb(34,177,76)")
+                    self.label_3.setText('PASS')
+                else:
+                    self.label_3.setStyleSheet("color:rgb(237,28,36)")
+                    self.label_3.setText("Ping failed, Pls check.")
+            elif sys.platform == "linux":
+                if re.search('Average', subprocess.getoutput("ping -c 1 %s"% self.ip_addr)):
+                    self.label_3.setStyleSheet("color:rgb(34,177,76)")
+                    self.label_3.setText('PASS')
+                else:
+                    self.label_3.setStyleSheet("color:rgb(237,28,36)")
+                    self.label_3.setText("Ping failed, Pls check.")
+            else:
+                self.label_3.setStyleSheet("color:rgb(237,28,36)")
+                self.label_3.setText("Unknown OS type.")
+        else:
+            self.label_3.setStyleSheet("color:rgb(237,28,36)")
+            self.label_3.setText("Wrong format IP.")
 
 
 class Clipboard_QT(QMainWindow,Ui_MainWindow):
     def __init__(self):
         super(Clipboard_QT, self).__init__()
         self.setupUi(self)
+        self.child = Connect_QT()
         self.EditCopy = ["", "", ""]
+        self.sendClipboardData = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.updateDataThread = WorkThread(self)
         self.shareClipboardData = ShareThread(self)
         self.updateDataThread.mySignal.connect(self.Update_EditBox)
@@ -65,20 +98,27 @@ class Clipboard_QT(QMainWindow,Ui_MainWindow):
         self.actionCopyToClipboard_1.triggered.connect(self.CopyToClipboard_1)
         self.actionCopyToClipboard_2.triggered.connect(self.CopyToClipboard_2)
         self.actionCopyToClipboard_3.triggered.connect(self.CopyToClipboard_3)
-        self.statusLable_2 = QLabel("Used to sharing clipboard            ")
+        self.actionConnect.triggered.connect(self.child.show)
+        self.statusLable_2 = QLabel("Used to sharing clipboard                ")
+        self.statusLable_2.setAlignment(Qt.AlignLeft)
         self.statusBar.addPermanentWidget(self.statusLable_2)
-        self.statusLable_1 = QLabel("     Designed for Inspur by @HansenWang ")
+        #self.statusLable_1 = QLabel("     Designed for Inspur by @HansenWang ")
+        self.statusLable_1 = QLabel()
+        self.statusLable_1.setText("Designed for Inspur by  <A href='https://hualong1009.github.io/about/'>@HansenWang</A>")
         self.statusBar.addPermanentWidget(self.statusLable_1)
+
+    def connectShareHost(self):
+        self.connect_UI = Connect_QT()
+
 
     def Update_EditBox(self, EditCopy):
         if pyperclip.paste() != "" and pyperclip.paste() not in self.EditCopy:
             self.EditCopy[1], self.EditCopy[2] = self.EditCopy[0], self.EditCopy[1]
             self.EditCopy[0] = pyperclip.paste()
-            print(self.EditCopy)
             try:
-                self.shareDataSocket.sendto(b"%s"% self.EditCopy, ('100.3.8.218', 9999))
-            except:
-                pass
+                self.sendClipboardData.sendto(b"%s"% str(self.EditCopy).encode('utf-8'), ('100.3.8.53', 9999))
+            except Exception as e:
+                print(e)
             self.EditBox_1.setPlainText(self.EditCopy[0])
             self.EditBox_2.setPlainText(self.EditCopy[1])
             self.EditBox_3.setPlainText(self.EditCopy[2])
@@ -101,5 +141,6 @@ class Clipboard_QT(QMainWindow,Ui_MainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     win = Clipboard_QT()
+    win.setWindowOpacity(0.7)
     win.show()
     sys.exit(app.exec_())
