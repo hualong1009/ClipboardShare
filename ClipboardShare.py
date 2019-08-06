@@ -31,6 +31,7 @@ class WorkThread(QThread):
             time.sleep(1)
 
 class ShareThread(QThread):
+
     mySignal = pyqtSignal(list)
     def __init__(self, MainGui):
         super(ShareThread, self).__init__()
@@ -54,23 +55,26 @@ class Connect_QT(QDialog, Ui_Dialog):
         self.pushButton.clicked.connect(self.testConnection)
 
     def testConnection(self):
+        global hostIp
+        global hostPort
         self.ip_addr = self.lineEdit.text()
         self.ip_port = self.lineEdit_2.text()
-        print(self.ip_addr)
         if re.match('[1-9][0-9]{1,2}(.[0-9]{1,3}){3}', self.ip_addr):
-            print('1')
             if sys.platform == "win32":
-                print('2')
-                if re.search('Average', subprocess.getoutput("ping -n 1 %s"% self.ip_addr)):
+                if re.search('ms', subprocess.getoutput("ping -n 1 %s"% self.ip_addr)):
                     self.label_3.setStyleSheet("color:rgb(34,177,76)")
                     self.label_3.setText('PASS')
+                    hostIp = self.ip_addr
+                    hostPort = self.ip_port
                 else:
                     self.label_3.setStyleSheet("color:rgb(237,28,36)")
                     self.label_3.setText("Ping failed, Pls check.")
             elif sys.platform == "linux":
-                if re.search('Average', subprocess.getoutput("ping -c 1 %s"% self.ip_addr)):
+                if re.search('ms', subprocess.getoutput("ping -c 1 %s"% self.ip_addr)):
                     self.label_3.setStyleSheet("color:rgb(34,177,76)")
                     self.label_3.setText('PASS')
+                    hostIp = self.ip_addr
+                    hostPort = self.ip_port
                 else:
                     self.label_3.setStyleSheet("color:rgb(237,28,36)")
                     self.label_3.setText("Ping failed, Pls check.")
@@ -115,10 +119,11 @@ class Clipboard_QT(QMainWindow,Ui_MainWindow):
         if pyperclip.paste() != "" and pyperclip.paste() not in self.EditCopy:
             self.EditCopy[1], self.EditCopy[2] = self.EditCopy[0], self.EditCopy[1]
             self.EditCopy[0] = pyperclip.paste()
-            try:
-                self.sendClipboardData.sendto(b"%s"% str(self.EditCopy).encode('utf-8'), ('100.3.8.53', 9999))
-            except Exception as e:
-                print(e)
+            if hostIp != "":
+                try:
+                    self.sendClipboardData.sendto(b"%s"% str(self.EditCopy).encode('utf-8'), (hostIp, int(hostPort)))
+                except Exception as e:
+                    print(e)
             self.EditBox_1.setPlainText(self.EditCopy[0])
             self.EditBox_2.setPlainText(self.EditCopy[1])
             self.EditBox_3.setPlainText(self.EditCopy[2])
@@ -141,6 +146,6 @@ class Clipboard_QT(QMainWindow,Ui_MainWindow):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     win = Clipboard_QT()
-    win.setWindowOpacity(0.7)
+    win.setWindowOpacity(0.9)
     win.show()
     sys.exit(app.exec_())
