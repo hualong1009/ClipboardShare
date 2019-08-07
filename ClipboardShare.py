@@ -1,4 +1,5 @@
-# -------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------
+#
 #   Author : HansenWang
 #   Date : 2019/08/01
 #   Description : Sharing clipboard in area network
@@ -6,7 +7,20 @@
 #   history :
 #       2019/08/01  v1.0
 #       init
-# -------------------------------------------------------------------
+#
+# ----------------------------------------------------------------------------------------------------
+#
+# Copyright (c) [2019] ClipboardShare
+# ClipboardShare is licensed under the Mulan PSL v1.
+# You can use this software according to the terms and conditions of the Mulan PSL v1.
+# You may obtain a copy of Mulan PSL v1 at:
+#    http://license.coscl.org.cn/MulanPSL
+# THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
+# PURPOSE.
+# See the Mulan PSL v1 for more details.
+#
+# ----------------------------------------------------------------------------------------------------
 
 
 import sys, re, subprocess
@@ -41,7 +55,7 @@ class ShareThread(QThread):
         shareClipboardData = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         shareClipboardData.bind(('', 9999))
         while True:
-            data, addr = shareClipboardData.recvfrom(1024)
+            data, addr = shareClipboardData.recvfrom(102400)
             pyperclip.copy(eval(str(data.decode('utf-8')))[0])
             self.mySignal.emit(self.MainGui.EditCopy)
             time.sleep(1)
@@ -91,6 +105,7 @@ class Clipboard_QT(QMainWindow,Ui_MainWindow):
         super(Clipboard_QT, self).__init__()
         self.setupUi(self)
         self.child = Connect_QT()
+        self.child.setWindowFlags(Qt.WindowStaysOnTopHint)
         self.EditCopy = ["", "", ""]
         self.sendClipboardData = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.updateDataThread = WorkThread(self)
@@ -106,7 +121,6 @@ class Clipboard_QT(QMainWindow,Ui_MainWindow):
         self.statusLable_2 = QLabel("Used to sharing clipboard                ")
         self.statusLable_2.setAlignment(Qt.AlignLeft)
         self.statusBar.addPermanentWidget(self.statusLable_2)
-        #self.statusLable_1 = QLabel("     Designed for Inspur by @HansenWang ")
         self.statusLable_1 = QLabel()
         self.statusLable_1.setText("Designed for Inspur by  <A href='https://hualong1009.github.io/about/'>@HansenWang</A>")
         self.statusBar.addPermanentWidget(self.statusLable_1)
